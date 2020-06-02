@@ -30,7 +30,10 @@
   ```
   docker buildx build --platform linux/arm/v7 -t <container_name> -f <dockerfile> . --load
   ```
-  - The caveat is that this only works for a single platform build. see [here](https://github.com/docker/buildx#-o---outputpath-typetypekeyvalue).
-  - Still exploring other options for multi platform build, including:
+  - The caveat is that this only works for a single platform build, see [here](https://github.com/docker/buildx#-o---outputpath-typetypekeyvalue).
+  
+ ## 4. WIP - Multi-Platform Build without using `push`
+  - Still exploring other [options](https://github.com/docker/buildx#-o---outputpath-typetypekeyvalue) for multi platform build, including:
     - Using `docker` driver instead of `docker-container` driver, which may allow the [`image`](https://github.com/docker/buildx#image) option to be used. However, it seems that the `default` builder which uses the `docker` driver doesn't support ARM platforms... to be verified again.
+    - `--output type=oci` following this [thread](https://github.com/docker/buildx/issues/166) created a container instead of an image ([export vs save](https://tuhrig.de/difference-between-save-and-export-in-docker/)). I had to use `docker import` instead of `docker load` the .tar file
     
