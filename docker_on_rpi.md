@@ -31,6 +31,9 @@
   docker buildx build --platform linux/arm/v7 -t <container_name> -f <dockerfile> . --load
   ```
   - The caveat is that this only works for a single platform build, see [here](https://github.com/docker/buildx#-o---outputpath-typetypekeyvalue).
+ - When building from a Dockerfile, remember that the base image from the Dockerfile has to work on ARM architectures, such as [these](https://pythonspeed.com/articles/base-image-python-docker-images/) if you cross-check on Dockerhub.
+   - Unfortunately, miniconda is not available as a base image for ARM, thus you'll have to install packages from requirements.txt instead of conda.yml. I've encountered several issues while trying to do this, particularly with *pandas* and *numpy*.
+
   
  ## 4. WIP - Multi-Platform Build without using `push`
   - Still exploring other [options](https://github.com/docker/buildx#-o---outputpath-typetypekeyvalue) for multi platform build, including:
