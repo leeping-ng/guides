@@ -63,9 +63,10 @@
 
 5. To run the container:
     ```
-    docker container run -d -it -v <path of persistent vol>:/<name to call this persistent vol> --name <container name> -p 80:80 <name:tag>
+    docker container run -d -it -v <path of persistent vol>:/<name to call this persistent vol> --name <container name> -p 80:7000 <name:tag>
     ```
-    If you exclude `-d`, you'll be able to see the output of the container in terminal.
+    - If you exclude `-d`, you'll be able to see the output of the container in terminal.
+    - For `-p`, ports are in this order -> host_port : container's_port. The Dockerfile should contain `EXPOSE container's_port`. In this case, to communicate with the container, `curl localhost:80`.
 
 6. To check if the container is running okay:
     ```
