@@ -1,6 +1,9 @@
-# Docker on Raspberry Pi
+# Docker on ARM CPUs
+
+This guide was written in early 2020, and there may have been updates to Docker and available ARM packages since then.
 
 ## 1. Background on RPi
+
 - The main reason why using Docker is different on a Raspberry Pi is because it uses ARM processors instead of x86_64/AMD64 processors which are used on typical computers.
 - Most Raspberry Pi versions (except for Model 1) have ARM processors that can run both 32-bit and 64-bit OS
 - However, for backward compatibility, most versions of OS e.g. Raspbian are still 32-bit.
@@ -13,10 +16,12 @@
 | 64-bit OS (e.g. 64-bit Ubuntu Mate on RPi 4) | linux/arm64 |
 
 ## 2. Installing Docker on RPi
+
 - Follow this [guide](https://withblue.ink/2019/07/13/yes-you-can-run-docker-on-raspbian.html) to intall Docker.
 - Once done, allow Docker to be used as a non-root user by following these [steps](https://docs.docker.com/engine/install/linux-postinstall/).
 
 ## 3. Building Docker Images for RPi
+
 - Follow the following sections of this [guide](https://www.docker.com/blog/getting-started-with-docker-for-arm-on-linux/) to:
   - Install buildx for multi-architecture image builds
   - Register Arm executables to run on x64 machines (note that you'll have to repeat this step every time you reboot/can add to startup script if you use buildx often)
@@ -38,73 +43,23 @@
 
 ## 4. Useful Docker Commands
 
-1. To build a docker image from dockerfile:
-    ```
-    docker build -t <name:tag> -f <PATH/Dockerfile> .
-    ```
-    Here, the PATH to build is '.' and includes the all the files in this local directory.
+See the [Docker Quick Reference Guide](../docker.md) for the most common commands. I do not use the following commands as frequently, but they are required here.
 
-2. Once this is successfully, you'll be able to see the new image by:
-    ```
-    docker images
-    ```
-
-3. Next, to save the image into a *.tar* file:
+1. To save the image into a *.tar* file:
     ```
     docker save -o <imagename.tar> <name:tag>
     ```
     A *.tar* file will be saved to PATH, which you can then use to create a Docker container elsewhere.
 
-4. Then, to load the image from the *.tar* file:
+4. To load the image from the *.tar* file:
     ```
     docker load -i <imagename.tar>
     ```
     Note that saving + loading is for images, while exporting + importing is for containers, see [this](https://tuhrig.de/difference-between-save-and-export-in-docker/).
 
-5. To run the container:
-    ```
-    docker container run -d -it -v <path of persistent vol>:/<name to call this persistent vol> --name <container name> -p 80:7000 <name:tag>
-    ```
-    - If you exclude `-d`, you'll be able to see the output of the container in terminal.
-    - For `-p`, ports are in this order -> host_port : container's_port. The Dockerfile should contain `EXPOSE container's_port`. In this case, to communicate with the container, `curl localhost:80`.
-
-6. To check if the container is running okay:
-    ```
-    docker container ls -a
-    ```
-    This will list the containers that are running, and the ones that have stopped (`-a`).
-
-7. To 'remote' into the container and execute commands:
-    ```
-    docker exec -it <CONTAINER ID> <CMD e.g. pip install numpy>
-    ```
-
-8. To retrieve logs from container:
-    ```
-    docker logs <CONTAINER ID>
-    ```
-
-9. To stop any container:
-    ```
-    docker stop <CONTAINER ID>
-    ```
-    Then:
-    ```
-    docker system prune
-    ```
-    Which will remove stopped containers and images.
-
-10. Lastly, to remove any images (after container has been stopped):
-    ```
-    docker image rm <IMAGE ID>
-    ```
-
-
-
-
-
 
  ## 5. WIP - Multi-Platform Build without using `push`
+ 
   - Still exploring other [options](https://github.com/docker/buildx#-o---outputpath-typetypekeyvalue) for multi platform build, including:
     - Using `docker` driver instead of `docker-container` driver, which may allow the [`image`](https://github.com/docker/buildx#image) option to be used. However, it seems that the `default` builder which uses the `docker` driver doesn't support ARM platforms... to be verified again.
     - `--output type=oci` following this [thread](https://github.com/docker/buildx/issues/166) created a container instead of an image ([export vs save](https://tuhrig.de/difference-between-save-and-export-in-docker/)). I had to use `docker import` instead of `docker load` the .tar file
