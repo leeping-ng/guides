@@ -129,9 +129,7 @@ Example:
 
 ## Optimising Docker Image Size
 
-A large Docker image has many disadvantages, e.g. more time is required to push and pull images, container instances take more time to initialise, and failures may occur due to [long start-up times](https://cloud.google.com/blog/topics/developers-practitioners/3-ways-optimize-cloud-run-response-times).
-
-The table below shows how choosing a good base image and only installing required dependencies go a long way in reducing the image size. 
+A large Docker image has many disadvantages, e.g. more time is required to push and pull images, container instances take more time to initialise, and failures may occur due to [long start-up times](https://cloud.google.com/blog/topics/developers-practitioners/3-ways-optimize-cloud-run-response-times). The table below shows how choosing a good base image and only installing required dependencies go a long way in reducing the image size. 
 
 | Docker Image Size | Description | Link to Dockerfile |
 |-------------------|-------------|--------------------|
