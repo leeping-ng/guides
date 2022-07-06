@@ -1,0 +1,5 @@
+google-cloud-storage
+fastapi
+uvicorn[standard]
+gunicorn
+peekingduck

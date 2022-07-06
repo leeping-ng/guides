@@ -7,10 +7,11 @@ This Docker quick reference guide is a compilation of useful commands and lesson
 - [Common Commands](#common-commands)
 - [Troubleshooting](#troubleshooting)
 - [Receiving Traffic](#receiving-traffic)
+- [Optimising Docker Image Size](#optimising-docker-image-size)
 
 ## Creating a Dockerfile
 
-For reference, see example of a [Dockerfile](Dockerfile) used for a deep learning application.
+For reference, see example of a [Dockerfile](dockerfiles/Dockerfile_1) used for a deep learning application.
 
 **One tip to speed up Docker builds**: when Docker builds the image on your system, it checks for new changes from the previous build and executes the steps after the changes. The steps prior to the changes have been cached and Docker doesn't repeat them for the new build. 
 
@@ -126,3 +127,17 @@ Example:
 >> docker run -d -it -p 8000:5000 --name <container name> <name:tag>
 ```
 
+## Optimising Docker Image Size
+
+A large Docker image has many disadvantages, e.g. more time is required to push and pull images, container instances take more time to initialise, and failures may occur due to [long start-up times](https://cloud.google.com/blog/topics/developers-practitioners/3-ways-optimize-cloud-run-response-times).
+
+The table below shows how choosing a good base image and only installing required dependencies go a long way in reducing the image size. 
+
+| Docker Image Size | Description | Link to Dockerfile |
+|-------------------|-------------|--------------------|
+| 17.1GB | Base image: Google Cloud's deep learning image with CUDA support | [Dockerfile_1](dockerfiles/Dockerfile_1) |
+| 6.77GB | Base image: python:3.7 | [Dockerfile_2](dockerfiles/Dockerfile_2) |
+| 3.87GB | Base image: python:3.7, removed Pytorch and Torchvision dependencies | [Dockerfile_3](dockerfiles/Dockerfile_3) |
+| 3.50GB | Base image: python:3.7-slim, removed Pytorch and Torchvision dependencies | [Dockerfile_4](dockerfiles/Dockerfile_4) |
+
+Note that while Alpine Linux is often used as a lightweight base image, but it is not recommended for Python with Docker for reasons listed in this [article](https://pythonspeed.com/articles/alpine-docker-python/).
