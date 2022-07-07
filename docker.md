@@ -49,7 +49,12 @@ WORKDIR ${APP_HOME}
     yolox-movenet   latest    0f9d43fc69e3   27 seconds ago   14.6GB
     ```
 
-3. To run the container:
+3. To push the image to a container registry:
+    ```
+    >> docker push <name:tag>
+    ```
+
+4. To run the container:
     ```
     # General command
     >> docker container run -d -it --name <container name> <name:tag>
@@ -67,7 +72,7 @@ WORKDIR ${APP_HOME}
         -v <path of persistent vol>:/<name to call this persistent vol>
         ```
 
-4. To check that the container is indeed running:
+5. To check that the container is indeed running:
     ```
     >> docker container ls
     CONTAINER ID   IMAGE                  COMMAND                  CREATED         STATUS         PORTS      NAMES
@@ -75,7 +80,7 @@ WORKDIR ${APP_HOME}
     ```
     If nothing appears, add the `-a` flag, which includes stopped containers. It is very likely that the container has stopped running due to a bug.
 
-5. To stop any container:
+6. To stop any container:
     ```
     >> docker stop <CONTAINER ID>
     ```
@@ -85,7 +90,7 @@ WORKDIR ${APP_HOME}
     ```
     Which will remove stopped containers and images.
 
-6. Lastly, to remove any images (after container has been stopped):
+7. Lastly, to remove any images (after container has been stopped):
     ```
     >> docker image rm <IMAGE ID>
     ```
