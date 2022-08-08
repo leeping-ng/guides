@@ -3,12 +3,15 @@
 <table>
   <tr>
     <td>
+      <a href="docker.md">
       <img src="images/docker.png" width="300">
     </td>
     <td>
+      <a href="kubernetes.md">
       <img src="images/kubernetes.jpeg" width="300">
     </td>
     <td>
+      <a href="gcp.md">
       <img src="images/gcp.png" width="300">
     </td>
   </tr>
