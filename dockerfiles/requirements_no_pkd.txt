@@ -6,7 +6,7 @@ gunicorn
 # selected PeekingDuck dependencies
 pyyaml >= 5.3
 click == 7.1.2
-requests == 2.24
+requests == 2.31.0
 opencv-contrib-python >= 4.5.2.54
 protobuf <= 3.20.1
 tensorflow >= 2.2, <2.8
