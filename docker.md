@@ -57,10 +57,10 @@ WORKDIR ${APP_HOME}
 4. To run the container:
     ```
     # General command
-    >> docker container run -d -it --name <container name> <name:tag>
+    >> docker run -d -it --name <container name> <name:tag>
 
     # Example
-    >> docker container run -d -it --name yolox-movenet yolox-movenet:latest
+    >> docker run -d -it --name yolox-movenet yolox-movenet:latest
     ```
     - If you exclude `-d`, you'll be able to see the output of the container in terminal.
     - `-p` (publish) flag can be added to publish a port. More on this in the [Receiving Traffic](#receiving-traffic) section.
