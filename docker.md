@@ -54,13 +54,16 @@ WORKDIR ${APP_HOME}
     >> docker push <name:tag>
     ```
 
-4. To run the container:
+4. To run the container (note that `-it` should be the last argument):
     ```
     # General command
-    >> docker run -d -it --name <container name> <name:tag>
+    >> docker run -d -it <name:tag>
+
+    # With GPUs
+    >> docker run --gpus all -d -it <name:tag>
 
     # Example
-    >> docker run -d -it --name yolox-movenet yolox-movenet:latest
+    >> docker run -d -it yolox-movenet:latest
     ```
     - If you exclude `-d`, you'll be able to see the output of the container in terminal.
     - `-p` (publish) flag can be added to publish a port. More on this in the [Receiving Traffic](#receiving-traffic) section.
@@ -69,7 +72,7 @@ WORKDIR ${APP_HOME}
         ```
     - `-v` (volume) flag can be added to attach a persistent volume.
         ```
-        -v <path of persistent vol>:/<name to call this persistent vol>
+        -v <absolute path of persistent vol on host>:/<absolute path of persistent vol in Docker container>
         ```
 
 5. To check that the container is indeed running:
